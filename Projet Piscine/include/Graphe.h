@@ -20,6 +20,7 @@ public:
             delete s;
     }
     void afficher(bool ponderation);
+
     int getOrdre()
     {
         return m_ordre;
@@ -52,6 +53,13 @@ public:
     {
         m_taille=a;
     }
+
+    double dijkirsta(size_t num_s0, size_t numF);
+    double obtenirPoid(const Sommets* som1, const Sommets* som2);
+    void centraliteDeProxUnSommet(size_t num_s0) ;
+    void centraliteDeProxSommets() ;
+
+
 
 private:
     /// Le réseau est constitué d'une collection de stations
