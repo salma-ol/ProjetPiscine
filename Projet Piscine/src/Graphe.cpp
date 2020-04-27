@@ -158,13 +158,12 @@ double Graphe::dijkirsta(size_t num_s0, size_t numF)
         }
         marquages[n]=1 ;
         s=m_sommets[n] ;
-        succ=s->getSuccesseurs() ;
+        succ=*s->getSuccesseurs();
         //Pour chaque successeur non marqué x de s :
         for(size_t i=0; i<succ.size(); ++i)
         {
             if(marquages[succ[i]->GetNum()]==0)
             {
-
                 /* si en passant par s le chemin est plus court, on met à jour
                 la distance et on note que s est le prédécesseur de x*/
                 if((d+obtenirPoid(s,succ[i]))<distances[succ[i]->GetNum()])
@@ -177,37 +176,24 @@ double Graphe::dijkirsta(size_t num_s0, size_t numF)
     return distances[numF] ;
 }
 
-void Graphe::centraliteDeProxUnSommet(size_t num_s0)
+void Graphe::centraliteDeProxUnSommet(int num_s0)
 {
     double cProx = 0;
     for(size_t i=0 ; i< m_sommets.size(); ++i)
-    {
         if(m_sommets[i]->GetNum() != num_s0)
-        {
-            cProx = cProx + dijkirsta(num_s0,(size_t)(m_sommets[i]->GetNum())) ;
+            cProx = cProx + dijkirsta(num_s0,(size_t)(m_sommets[i]->GetNum()));
 
-        }
-
-    }
     if ( cProx ==0 )
-    {
         std::cout << std::endl <<  num_s0 << " : "<< "Pas d'indice" << std::endl ;
-    }
-    else{
+    else
         std::cout << std::endl << num_s0 << " : "<<  1/cProx << "     " <<  m_ordre/cProx ;
-    }
-
-    // return (m_ordre/cProx) ;
 }
 
 void Graphe::centraliteDeProxSommets()
 {
     std::cout << "   **Centralite de Proximite** " ;
     for(size_t i=0 ; i< m_sommets.size(); ++i)
-    {
        centraliteDeProxUnSommet((size_t)(m_sommets[i]->GetNum())) ;
-    }
-
 }
 
 ///Centralité de vecteur propre

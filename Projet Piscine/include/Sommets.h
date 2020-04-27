@@ -27,7 +27,7 @@ class Sommets
         void setIndice(float a);
         void setIndiceNormalise(float a);
         void afficherSommet();
-        const std::vector<const Sommets*>& getSuccesseurs() const ;
+        const std::vector<const Sommets*>* getSuccesseurs() const ;
         void ajouterSucc(const Sommets* s);
 
     private:
@@ -37,7 +37,7 @@ class Sommets
         float m_indice;
         float m_indicenormalise;
         std::string m_name;
-        std::vector<const Sommets*> m_successeurs ;
+        std::vector<const Sommets*> m_successeurs;
 };
 
 #endif // SOMMETS_H
