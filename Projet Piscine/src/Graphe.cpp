@@ -240,8 +240,10 @@ void Graphe::VecteurPropre()
 
 }
 
-/*
-void Graphe::Intermediarite()
+
+
+/*void Graphe::Intermediarite()
+
 {
     for(int i=0; i<m_ordre; ++i)
         for(int j=0; i<m_ordre; ++i)
@@ -252,5 +254,5 @@ void Graphe::Intermediarite()
                             m_sommets[i]->setindiceintermediaire+=1;
 
 
-}*/
 
+}*/
