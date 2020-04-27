@@ -20,7 +20,38 @@ public:
             delete s;
     }
     void afficher(bool ponderation);
-
+    int getOrdre()
+    {
+        return m_ordre;
+    }
+    int getTaille()
+    {
+        return m_taille;
+    }
+    int getOrient()
+    {
+        return m_orient;
+    }
+    std::vector<Sommets*> *getSommets()
+    {
+        return &m_sommets;
+    }
+    std::vector<Aretes*> *getAretes()
+    {
+        return &m_aretes;
+    }
+    int setOrient(int a)
+    {
+        m_orient=a;
+    }
+    int setOrdre(int a)
+    {
+        m_ordre=a;
+    }
+    int setTaille(int a)
+    {
+        m_taille=a;
+    }
 
 private:
     /// Le réseau est constitué d'une collection de stations

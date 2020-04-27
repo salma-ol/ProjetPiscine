@@ -1,7 +1,7 @@
 #include "Sommets.h"
 #include "svgfile.h"
 
-Sommets::Sommets(int i) : m_x{}, m_y{}, m_num{i}, m_name{}
+Sommets::Sommets(int i) : m_x{}, m_y{}, m_num{i}, m_indice{1}, m_name{}
 {
 
 }

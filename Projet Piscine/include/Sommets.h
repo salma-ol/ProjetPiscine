@@ -25,6 +25,7 @@ class Sommets
         int m_x;
         int m_y;
         int m_num;
+        int m_indice;
         std::string m_name;
 };
 
