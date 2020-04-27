@@ -34,8 +34,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="centralite.cpp" />
-		<Unit filename="centralite.h" />
 		<Unit filename="include/Aretes.h" />
 		<Unit filename="include/Graphe.h" />
 		<Unit filename="include/Sommets.h" />

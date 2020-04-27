@@ -18,7 +18,6 @@ class Aretes
         const double GetPoids() const ;
         const int GetNum()const ;
         std::pair<Sommets*,Sommets*>* getSommets();
-        double GetPoids();
 
         void SetSommet1(Sommets* num);
         void SetSommet2(Sommets* num);
