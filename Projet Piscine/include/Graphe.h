@@ -21,6 +21,7 @@ public:
             delete s;
     }
     void afficher(bool ponderation);
+    void centraliteDegre();
 
     int getOrdre()
     {
@@ -60,7 +61,6 @@ public:
     void centraliteDeProxSommets() ;
 
     void VecteurPropre();
-    //void Intermediarite() ;
 
 private:
     /// Le réseau est constitué d'une collection de stations

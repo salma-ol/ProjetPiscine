@@ -25,12 +25,12 @@ void Aretes::SetSommet2(Sommets* num)
 {
     m_sommet.second = num;
 }
-const Sommets* Aretes::GetSommet1() const
+Sommets* Aretes::GetSommet1()
 {
     return m_sommet.first;
 }
 
-const Sommets* Aretes::GetSommet2() const
+Sommets* Aretes::GetSommet2()
 {
     return m_sommet.second;
 }

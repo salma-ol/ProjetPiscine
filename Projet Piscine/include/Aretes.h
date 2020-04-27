@@ -13,8 +13,8 @@ class Aretes
     public:
         Aretes(int i);
         virtual ~Aretes();
-        const Sommets* GetSommet1() const ;
-        const Sommets* GetSommet2() const ;
+        Sommets* GetSommet1() ;
+        Sommets* GetSommet2() ;
         const double GetPoids() const ;
         const int GetNum()const ;
         std::pair<Sommets*,Sommets*>* getSommets();

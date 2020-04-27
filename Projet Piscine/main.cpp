@@ -11,9 +11,8 @@ int main()
 {
     Graphe a=charger();
     a.VecteurPropre();
-
-    a.centraliteDeProxSommets() ;
-
+    a.centraliteDegre();
+    //a.centraliteDeProxSommets();
 
     return 0;
 }

@@ -67,6 +67,7 @@ if(ponderation == true)
 }
 }
 
+
 void Graphe::afficher(bool ponderation)
 {
     Svgfile svgout;
@@ -91,8 +92,30 @@ void Graphe::afficher(bool ponderation)
             svgout.addText((m_aretes[i]->GetSommet1()->GetX()-m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()-m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "blue");
         }
     }
+
+    centraliteDeProxSommets() ;
+
 }
 
+/// CENTRALITE DE DEGRE
+
+void Graphe::centraliteDegre()
+{
+    for(int i=0; i<m_taille; i++)
+    {
+        m_aretes[i]->GetSommet1()->SetIndiceDegreNN(m_aretes[i]->GetSommet1()->GetIndiceDegreNN()+1);
+        if(m_orient == false)
+            m_aretes[i]->GetSommet2()->SetIndiceDegreNN(m_aretes[i]->GetSommet2()->GetIndiceDegreNN()+1);
+    }
+
+    std::cout << "\nIndice de centralite de degre : \n"<<std::endl;
+    for(int i=0; i<m_ordre; i++)
+    {
+        m_sommets[i]->SetIndiceDegre(m_sommets[i]->GetIndiceDegreNN()/(m_ordre-1));
+        std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceDegreNN()<<" \tnormalise : " << m_sommets[i]->GetIndiceDegre()<< std::endl;
+    }
+
+}
 
 /// CENTRALITE DE PROXIMITE
 
@@ -179,7 +202,7 @@ void Graphe::centraliteDeProxUnSommet(size_t num_s0)
     double cProx = 0;
     for(size_t i=0 ; i< m_sommets.size(); ++i)
     {
-        if(m_sommets[i]->GetNum() != num_s0)
+        if(m_sommets[i]->GetNum() != (int)num_s0)
         {
             cProx = cProx + dijkirsta(num_s0,(size_t)(m_sommets[i]->GetNum())) ;
 
@@ -211,6 +234,9 @@ void Graphe::centraliteDeProxSommets()
 
 void Graphe::VecteurPropre()
 {
+    for(auto a:m_sommets)
+        a->SetIndiceVectorNN(1);
+
     std::vector<float> adj;//vecteur récupérant la valeur das sommets adjacents
     float sommeadj=0.0, lambda=0.0, plambda=0.0;
     do
@@ -220,30 +246,34 @@ void Graphe::VecteurPropre()
         sommeadj=0.0;
         for(int i=0; i<m_ordre; ++i)//on récupère la valeure des sommets adjacents pour chaque sommet
             for(auto a:m_aretes)
-                if(a->getSommets()->first==m_sommets[i] || a->getSommets()->second==m_sommets[i])
-                        adj[i]+=m_sommets[i]->getIndice();
+                if(a->GetSommet1()==m_sommets[i] || a->GetSommet2()==m_sommets[i])
+                    adj[i]+=m_sommets[i]->GetIndiceVectorNN();
+
         for(auto a: adj)//on additionne leurs carrés
             sommeadj+=pow(a,2);
+
         plambda=lambda;//mmr
+
         if(plambda==0)//pour ne pas diviser par 0
             plambda=1;
+
         lambda=sqrt(sommeadj);
+
         for(int i=0; i<m_ordre; ++i)//on donne la nouvelle valeure aux indices de chaques sommets
-            m_sommets[i]->setIndice( adj[i]/lambda);
+            m_sommets[i]->SetIndiceVectorNN( adj[i]/lambda);
+
     }while(lambda/plambda>1.5);//lambda/plambda => variations de lambda
 
-
     for(auto a:m_sommets)//normalise les indices
-        a->setIndiceNormalise(a->getIndice()/(m_ordre-1));
-    for(auto a:m_sommets)
-        std::cout<<a->getIndice()<<"    "<<a->getIndiceNormalise()<<std::endl;
+        a->SetIndiceVector(a->GetIndiceVectorNN()/(m_ordre-1));
 
+    std::cout<<"centralite de vecteur propre : \n\n";
+    for(auto a : m_sommets)
+        std::cout<<a->GetName()<<" : "<<a->GetIndiceVectorNN()<<"    "<<a->GetIndiceVector()<<std::endl;
 }
 
 
-
 /*void Graphe::Intermediarite()
-
 {
     for(int i=0; i<m_ordre; ++i)
         for(int j=0; i<m_ordre; ++i)
@@ -254,5 +284,5 @@ void Graphe::VecteurPropre()
                             m_sommets[i]->setindiceintermediaire+=1;
 
 
-
-}*/
+}
+*/
