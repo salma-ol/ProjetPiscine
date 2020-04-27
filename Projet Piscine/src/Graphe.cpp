@@ -81,3 +81,23 @@ void Graphe::afficher(bool ponderation)
     }
 
 }
+<<<<<<< Updated upstream
+=======
+
+void Graphe::centraliteDegre()
+{
+    for(int i=0; i<m_taille; i++)
+    {
+        m_aretes[i]->GetSommet1()->SetIndiceNN(m_aretes[i]->GetSommet1()->GetIndiceNN()+1);
+        if(m_orient == false)
+            m_aretes[i]->GetSommet2()->SetIndiceNN(m_aretes[i]->GetSommet2()->GetIndiceNN()+1);
+    }
+    std::cout << "\nIndice de centralite de degre : \n"<<std::endl;
+    for(int i=0; i<m_ordre; i++)
+    {
+        m_sommets[i]->SetIndice(m_sommets[i]->GetIndiceNN()/(m_ordre-1));
+        std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceNN()<<" \tnormalise : " << m_sommets[i]->GetIndice()<< std::endl;
+    }
+
+}
+>>>>>>> Stashed changes

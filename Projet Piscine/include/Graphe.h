@@ -20,8 +20,13 @@ public:
             delete s;
     }
     void afficher(bool ponderation);
+    void centraliteDegre();
 
 
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
 private:
     /// Le réseau est constitué d'une collection de stations
     std::vector<Sommets*> m_sommets;
