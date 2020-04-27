@@ -60,6 +60,7 @@ public:
     void centraliteDeProxSommets() ;
 
     void VecteurPropre();
+    //void Intermediarite() ;
 
 private:
     /// Le réseau est constitué d'une collection de stations

@@ -91,9 +91,6 @@ void Graphe::afficher(bool ponderation)
             svgout.addText((m_aretes[i]->GetSommet1()->GetX()-m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()-m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "blue");
         }
     }
-
-    centraliteDeProxSommets() ;
-
 }
 
 
@@ -230,7 +227,9 @@ void Graphe::VecteurPropre()
 }
 
 
+
 /*void Graphe::Intermediarite()
+
 {
     for(int i=0; i<m_ordre; ++i)
         for(int j=0; i<m_ordre; ++i)
@@ -241,5 +240,5 @@ void Graphe::VecteurPropre()
                             m_sommets[i]->setindiceintermediaire+=1;
 
 
-}
-*/
+
+}*/
