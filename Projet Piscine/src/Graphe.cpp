@@ -114,7 +114,7 @@ void Graphe::VecteurPropre()
 
     for(auto a:m_sommets)//normalise les indices
         a->setIndiceNormalise(a->getIndice()/(m_ordre-1));
-    //for(auto a:m_sommets)
-      //  std::cout<<a->getIndice()<<"    "<<a->getIndiceNormalise()<<std::endl;
+    for(auto a:m_sommets)
+        std::cout<<a->getIndice()<<"    "<<a->getIndiceNormalise()<<std::endl;
 
 }
