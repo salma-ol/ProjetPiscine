@@ -1,7 +1,7 @@
 #include "Sommets.h"
 #include "svgfile.h"
 
-Sommets::Sommets(int i) : m_x{}, m_y{}, m_num{i}, m_indice{1}, m_name{}
+Sommets::Sommets(int i) : m_x{}, m_y{}, m_num{i}, m_indice{1.0},m_indicenormalise{0.0}, m_name{}
 {
 
 }
@@ -51,6 +51,7 @@ void Sommets::afficherSommet()
     std::cout << m_name << " " << m_x << " " << m_y << std::endl;
 }
 
+
 const std::vector<const Sommets*>& Sommets::getSuccesseurs() const
 {
         return m_successeurs;
@@ -59,4 +60,22 @@ const std::vector<const Sommets*>& Sommets::getSuccesseurs() const
 void Sommets::ajouterSucc(const Sommets* s)
 {
     m_successeurs.push_back(s);
+void Sommets::setIndice(float a)
+{
+    m_indice=a;
+}
+
+float Sommets::getIndice()
+{
+    return m_indice;
+}
+
+float Sommets::getIndiceNormalise()
+{
+    return m_indicenormalise;
+}
+
+void Sommets::setIndiceNormalise(float a)
+{
+    m_indicenormalise=a;
 }

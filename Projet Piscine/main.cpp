@@ -9,7 +9,8 @@
 
 int main()
 {
-    charger();
+    Graphe a=charger();
+    a.VecteurPropre();
 
     return 0;
 }

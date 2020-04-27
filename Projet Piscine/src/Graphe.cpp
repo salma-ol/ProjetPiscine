@@ -1,7 +1,12 @@
 #include "Graphe.h"
 #include "Sommets.h"
 #include "Aretes.h"
+#include <cmath>
 
+Graphe::Graphe()
+{
+
+}
 Graphe::Graphe(std::string nomFichier, bool ponderation)
 {
     std::ifstream ifs{nomFichier};
@@ -202,6 +207,53 @@ void Graphe::centraliteDeProxSommets()
     {
        centraliteDeProxUnSommet((size_t)(m_sommets[i]->GetNum())) ;
     }
+
+}
+
+///Centralité de vecteur propre
+
+void Graphe::VecteurPropre()
+{
+    std::vector<float> adj;//vecteur récupérant la valeur das sommets adjacents
+    float sommeadj=0.0, lambda=0.0, plambda=0.0;
+    do
+    {
+        adj.clear();//pour que ca reprenne a 0 a chaque tour de boucle
+        adj.resize(m_ordre);
+        sommeadj=0.0;
+        for(int i=0; i<m_ordre; ++i)//on récupère la valeure des sommets adjacents pour chaque sommet
+            for(auto a:m_aretes)
+                if(a->getSommets()->first==m_sommets[i] || a->getSommets()->second==m_sommets[i])
+                        adj[i]+=m_sommets[i]->getIndice();
+        for(auto a: adj)//on additionne leurs carrés
+            sommeadj+=pow(a,2);
+        plambda=lambda;//mmr
+        if(plambda==0)//pour ne pas diviser par 0
+            plambda=1;
+        lambda=sqrt(sommeadj);
+        for(int i=0; i<m_ordre; ++i)//on donne la nouvelle valeure aux indices de chaques sommets
+            m_sommets[i]->setIndice( adj[i]/lambda);
+    }while(lambda/plambda>1.5);//lambda/plambda => variations de lambda
+
+
+    for(auto a:m_sommets)//normalise les indices
+        a->setIndiceNormalise(a->getIndice()/(m_ordre-1));
+    for(auto a:m_sommets)
+        std::cout<<a->getIndice()<<"    "<<a->getIndiceNormalise()<<std::endl;
+
+}
+
+
+void Graphe::Intermediarite()
+{
+    for(int i=0; i<m_ordre; ++i)
+        for(int j=0; i<m_ordre; ++i)
+            if(j!=i)
+                for(k=j+1; k<m_ordre;++k)
+                    if(k!=i)
+                        if(Djikstra(m_sommets[j],m_sommets[i])+Djikstra(m_sommets[i],m_sommets[k])==Djikstra(m_sommets[j],m_sommets[k]))
+                            m_sommets[i]->setindiceintermediaire+=1;
+
 
 }
 

@@ -13,6 +13,7 @@ class Graphe
 {
 public:
 
+    Graphe();
     Graphe(std::string nomFichier, bool ponderation);
     ~Graphe()
     {
@@ -41,25 +42,24 @@ public:
     {
         return &m_aretes;
     }
-    int setOrient(int a)
+    void setOrient(int a)
     {
         m_orient=a;
     }
-    int setOrdre(int a)
+    void setOrdre(int a)
     {
         m_ordre=a;
     }
-    int setTaille(int a)
+    void setTaille(int a)
     {
         m_taille=a;
     }
-
     double dijkirsta(size_t num_s0, size_t numF);
     double obtenirPoid(const Sommets* som1, const Sommets* som2);
     void centraliteDeProxUnSommet(size_t num_s0) ;
     void centraliteDeProxSommets() ;
 
-
+    void VecteurPropre();
 
 private:
     /// Le réseau est constitué d'une collection de stations
