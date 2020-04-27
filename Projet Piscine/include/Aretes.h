@@ -13,10 +13,10 @@ class Aretes
     public:
         Aretes(int i);
         virtual ~Aretes();
-        Sommets* GetSommet1();
-        Sommets* GetSommet2();
-        double GetPoids();
-        int GetNum();
+        const Sommets* GetSommet1() const ;
+        const Sommets* GetSommet2() const ;
+        const double GetPoids() const ;
+        const int GetNum()const ;
         void SetSommet1(Sommets* num);
         void SetSommet2(Sommets* num);
         void SetPoids(double poids);

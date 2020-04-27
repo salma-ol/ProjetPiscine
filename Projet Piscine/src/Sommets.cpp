@@ -10,22 +10,22 @@ Sommets::~Sommets()
 {
 
 }
-int Sommets::GetX()
+const int Sommets::GetX() const
 {
     return m_x;
 }
 
-int Sommets::GetY()
+const int Sommets::GetY() const
 {
     return m_y;
 }
 
-int Sommets::GetNum()
+const int Sommets::GetNum() const
 {
     return m_num;
 }
 
-std::string Sommets::GetName()
+const std::string Sommets::GetName() const
 {
     return m_name;
 }
@@ -49,4 +49,14 @@ void Sommets::afficherSommet()
 {
     std::cout << "Sommet " << m_num << " : ";
     std::cout << m_name << " " << m_x << " " << m_y << std::endl;
+}
+
+const std::vector<const Sommets*>& Sommets::getSuccesseurs() const
+{
+        return m_successeurs;
+}
+
+void Sommets::ajouterSucc(const Sommets* s)
+{
+    m_successeurs.push_back(s);
 }
