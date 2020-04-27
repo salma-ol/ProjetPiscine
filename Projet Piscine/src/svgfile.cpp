@@ -111,7 +111,7 @@ void Svgfile::addGrid(double span, bool numbering, std::string color)
     double y=0;
     while (y<=m_height)
     {
-        addLine(15, y+100, m_width, y, color);
+        addLine(15, y, m_width, y, color);
         if (numbering)
             addText(5, y-5, y, color);
         y+=span;

@@ -25,8 +25,6 @@ class Aretes
 
     private:
         std::pair < Sommets*, Sommets* > m_sommet;
-//        Sommets* m_sommet1;
-//        Sommets* m_sommet2;
         double m_poids;
         int m_num;
 };
