@@ -118,3 +118,17 @@ void Graphe::VecteurPropre()
         std::cout<<a->getIndice()<<"    "<<a->getIndiceNormalise()<<std::endl;
 
 }
+
+
+void Graphe::Intermediarite()
+{
+    for(int i=0; i<m_ordre; ++i)
+        for(int j=0; i<m_ordre; ++i)
+            if(j!=i)
+                for(k=j+1; k<m_ordre;++k)
+                    if(k!=i)
+                        if(Djikstra(m_sommets[j],m_sommets[i])+Djikstra(m_sommets[i],m_sommets[k])==Djikstra(m_sommets[j],m_sommets[k]))
+                            m_sommets[i]->setindiceintermediaire+=1;
+
+
+}
