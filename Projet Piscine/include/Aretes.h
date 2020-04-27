@@ -15,6 +15,7 @@ class Aretes
         virtual ~Aretes();
         Sommets* GetSommet1();
         Sommets* GetSommet2();
+        std::pair<Sommets*,Sommets*>* getSommets();
         double GetPoids();
         int GetNum();
         void SetSommet1(Sommets* num);

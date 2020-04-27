@@ -13,6 +13,7 @@ class Graphe
 {
 public:
 
+    Graphe();
     Graphe(std::string nomFichier, bool ponderation);
     ~Graphe()
     {
@@ -20,6 +21,7 @@ public:
             delete s;
     }
     void afficher(bool ponderation);
+
     int getOrdre()
     {
         return m_ordre;
@@ -40,19 +42,19 @@ public:
     {
         return &m_aretes;
     }
-    int setOrient(int a)
+    void setOrient(int a)
     {
         m_orient=a;
     }
-    int setOrdre(int a)
+    void setOrdre(int a)
     {
         m_ordre=a;
     }
-    int setTaille(int a)
+    void setTaille(int a)
     {
         m_taille=a;
     }
-
+    void VecteurPropre();
 private:
     /// Le réseau est constitué d'une collection de stations
     std::vector<Sommets*> m_sommets;

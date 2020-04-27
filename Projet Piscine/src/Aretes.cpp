@@ -52,3 +52,9 @@ void Aretes::afficherArete(bool pond)
         std::cout << "Poids : " << m_poids << std::endl;
     }
 }
+
+
+std::pair<Sommets*,Sommets*>* Aretes::getSommets()
+{
+    return &m_sommet;
+}
