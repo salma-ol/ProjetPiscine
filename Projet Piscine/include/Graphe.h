@@ -56,7 +56,7 @@ public:
     }
     double dijkirsta(size_t num_s0, size_t numF);
     double obtenirPoid(const Sommets* som1, const Sommets* som2);
-    void centraliteDeProxUnSommet(int num_s0) ;
+    void centraliteDeProxUnSommet(size_t num_s0) ;
     void centraliteDeProxSommets() ;
 
     void VecteurPropre();

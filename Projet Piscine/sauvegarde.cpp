@@ -20,14 +20,14 @@ Graphe charger()
                 {
                     Graphe gr("piscine.txt", true);
                     g=gr;
-                    g.afficher(1);
+                    //g.afficher(1);
                     break;
                 }
             case 2:
                 {
                     Graphe gr("piscine.txt", false);
                     g=gr;
-                    g.afficher(0);
+                    //g.afficher(0);
                     break;
                 }
             }

@@ -52,9 +52,9 @@ void Sommets::afficherSommet()
 }
 
 
-const std::vector<const Sommets*>* Sommets::getSuccesseurs() const
+const std::vector<const Sommets*>& Sommets::getSuccesseurs() const
 {
-        return &m_successeurs;
+        return m_successeurs;
 }
 
 void Sommets::ajouterSucc(const Sommets* s)
