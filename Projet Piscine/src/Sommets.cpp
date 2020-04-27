@@ -60,6 +60,7 @@ const std::vector<const Sommets*>& Sommets::getSuccesseurs() const
 void Sommets::ajouterSucc(const Sommets* s)
 {
     m_successeurs.push_back(s);
+}
 void Sommets::setIndice(float a)
 {
     m_indice=a;
