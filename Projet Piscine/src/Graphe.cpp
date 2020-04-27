@@ -122,14 +122,21 @@ void Graphe::VecteurPropre()
 
 void Graphe::Intermediarite()
 {
+    int ncc;
     for(int i=0; i<m_ordre; ++i)
+    {
+        ncc=0;
         for(int j=0; i<m_ordre; ++i)
             if(j!=i)
                 for(k=j+1; k<m_ordre;++k)
+                {
+                    ncc++;
                     if(k!=i)
                         if(Djikstra(m_sommets[j],m_sommets[i])+Djikstra(m_sommets[i],m_sommets[k])==Djikstra(m_sommets[j],m_sommets[k]))
-                            m_sommets[i]->setindiceintermediaire+=1;
-
-
+                            m_sommets[i]->setindiceintermediaire()+=1;
+                }
+        m_sommets[i]->setIndiceIntermediaire(m_sommets[i]->getIndiceIntermediaire()/ncc);
+        m_sommets[i]->setIndiceIntermediaireNormalise(2*m_sommets[i]->getIndiceItermediaire()/(pow(m_ordre,2)-3*m_ordre+2));
+    }
 }
 
