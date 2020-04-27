@@ -9,6 +9,7 @@
 
 int main()
 {
+    std::cout<<"ghoizsehgfoishfo";
     Graphe a=charger();
     a.VecteurPropre();
     return 0;
