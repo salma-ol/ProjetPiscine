@@ -37,4 +37,5 @@ void charger()
     {
         std::cerr << "Attention : " << e.what() << std::endl;
     }
+
 }
