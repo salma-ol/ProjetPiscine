@@ -23,6 +23,7 @@ class Aretes
         void SetSommet2(Sommets* num);
         void SetPoids(double poids);
         void afficherArete(bool pond);
+        void SetNum(int num) ;
 
 
     private:

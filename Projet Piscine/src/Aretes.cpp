@@ -11,7 +11,6 @@ void Aretes::SetSommet1(Sommets* num)
 {
     m_sommet.first = num;
 }
-
 void Aretes::SetPoids(double poids)
 {
     m_poids = poids;
@@ -49,8 +48,13 @@ void Aretes::afficherArete(bool pond)
     }
 }
 
-
 std::pair<Sommets*,Sommets*>* Aretes::getSommets()
 {
     return &m_sommet;
 }
+
+void Aretes::SetNum(int num)
+{
+    m_num=num ;
+}
+
