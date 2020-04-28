@@ -23,7 +23,7 @@ public:
     void ponderation(std::string);
     void afficher();
     void centraliteDegre();
-
+    void supprimerArete() ;
     int getOrdre()
     {
         return m_ordre;

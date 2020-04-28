@@ -1,6 +1,7 @@
 #include "Graphe.h"
 #include "Sommets.h"
 #include "Aretes.h"
+#include <vector>
 #include <cmath>
 #include <fstream>
 
@@ -81,6 +82,18 @@ void Graphe::afficher()
             svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "orange");
     }
 }
+
+
+void Graphe::supprimerArete()
+{
+    int n ;
+    std::cout << "Saisir l'indice de l'arete que vous voulez supprimer" << std::endl ;
+    std::cin >> n ;
+    m_aretes.erase(m_aretes.begin()+n) ;
+    m_taille -= 1 ;
+    for(size_t i=n ; i<m_aretes.size() ; ++i) { m_aretes[i]->SetNum(m_aretes[i]->GetNum()-1) ; }
+}
+
 
 /// CENTRALITE DE DEGRE
 
@@ -190,7 +203,6 @@ void Graphe::centraliteDeProxUnSommet(size_t num_s0, Sommets* Actuel)
         if(m_sommets[i]->GetNum() != (int)num_s0)
         {
             cProx = cProx + dijkstra(num_s0,(size_t)(m_sommets[i]->GetNum())) ;
-
         }
     }
     ///affichage des resultats
