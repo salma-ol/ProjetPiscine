@@ -78,9 +78,7 @@ void Graphe::afficher()
         svgout.addLine(m_aretes[i]->GetSommet1()->GetX(), m_aretes[i]->GetSommet1()->GetY(), m_aretes[i]->GetSommet2()->GetX(), m_aretes[i]->GetSommet2()->GetY(), "blue");
 
         if(m_pondere)
-        {
-            svgout.addText((m_aretes[i]->GetSommet1()->GetX()-m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()-m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "blue");
-        }
+            svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "orange");
     }
 }
 

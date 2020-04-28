@@ -30,6 +30,6 @@ int main()
     a.centraliteDegre();
     a.centraliteDeProxSommets();
     a.Intermediarite();
-
+    a.afficher();
     return 0;
 }
