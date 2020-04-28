@@ -250,16 +250,26 @@ void Graphe::VecteurPropre()
 }
 
 
-/*void Graphe::Intermediarite()
+void Graphe::Intermediarite()
 {
+    int ncc = 0;
     for(int i=0; i<m_ordre; ++i)
         for(int j=0; i<m_ordre; ++i)
             if(j!=i)
-                for(k=j+1; k<m_ordre;++k)
+                for(int k=j+1; k<m_ordre;++k)
                     if(k!=i)
-                        if(Djikstra(m_sommets[j],m_sommets[i])+Djikstra(m_sommets[i],m_sommets[k])==Djikstra(m_sommets[j],m_sommets[k]))
-                            m_sommets[i]->setindiceintermediaire+=1;
+                    {
+                        ncc++;
+                        if( dijkstra(m_sommets[j]->GetNum(),m_sommets[i]->GetNum())+dijkstra(m_sommets[i]->GetNum(),m_sommets[k]->GetNum())==dijkstra(m_sommets[j]->GetNum(),m_sommets[k]->GetNum()))
+                            m_sommets[i]->SetIndiceIntermediaireNN(m_sommets[i]->GetIndiceIntermediaireNN()+1);
 
+                    }
 
+    std::cout << "\n\t **Centralite d'Intermediarite**\n";
+    for(int i = 0; i<m_ordre; i++)
+    {
+        m_sommets[i]->SetIndiceIntermediaireNN(m_sommets[i]->GetIndiceIntermediaireNN()/ncc);
+        m_sommets[i]->SetIndiceIntermediaire((2*m_sommets[i]->GetIndiceIntermediaireNN())/(pow(m_ordre, 2)-3*m_ordre+2));
+        std::cout << "Sommet " << m_sommets[i]->GetNum() << " : "<< "\tnon normalise : " << m_sommets[i]->GetIndiceIntermediaireNN() << "\t\tnormalise : " << m_sommets[i]->GetIndiceIntermediaire()<<std::endl;
+    }
 }
-*/
