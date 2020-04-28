@@ -13,8 +13,8 @@ class Graphe
 {
 public:
 
-    Graphe(std::string);
-    Graphe(std::string nomFichier, bool ponderation);
+    Graphe();
+    Graphe(std::string nomFichier);
     ~Graphe()
     {
         for (auto s : m_sommets)

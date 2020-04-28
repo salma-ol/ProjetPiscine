@@ -4,6 +4,10 @@
 #include <cmath>
 #include <fstream>
 
+Graphe::Graphe()
+{
+
+}
 Graphe::Graphe(std::string nomFichier)
 {
     m_pondere=false;
@@ -13,7 +17,7 @@ Graphe::Graphe(std::string nomFichier)
     if(!ifs)
     {
         std::cout<<"erreur ouverture fichier";
-        return;
+        exit(0);
     }
     ifs>>m_orient;
     ifs>>m_ordre;
