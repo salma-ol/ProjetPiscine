@@ -1,10 +1,8 @@
 #include "Sommets.h"
 #include "svgfile.h"
 
-Sommets::Sommets(int num,char nom,int x, int y) : m_x{x}, m_y{y}, m_num{num}, m_indice_degre_NN{0}, m_indice_degre{0}, m_indice_vector_NN{0}, m_indice_vector{0}, m_indice_proximite_NN{0}, m_indice_proximite{0}, m_indice_intermediaire_NN{0}, m_indice_intermediaire{0}, m_name{nom}
-{
-
-}
+Sommets::Sommets(int num,char nom,int x, int y) : m_x{x}, m_y{y}, m_num{num}, m_indices{4,std::make_pair(0,0)}, m_name{nom}
+{}
 
 Sommets::~Sommets()
 {
@@ -64,80 +62,80 @@ void Sommets::ajouterSucc(const Sommets* s)
 
 void Sommets::SetIndiceDegreNN(float indice) // indice non normalise
 {
-    m_indice_degre_NN = indice;
+    m_indices[0].first = indice;
 }
 
 float Sommets::GetIndiceDegreNN() const// indice non normalise
 {
-    return m_indice_degre_NN;
+    return m_indices[0].first;
 }
 
 float Sommets::GetIndiceDegre() const // indice normalise
 {
-    return m_indice_degre;
+    return m_indices[0].second;
 }
 
 void Sommets::SetIndiceDegre(float indice) // indice normalise
 {
-    m_indice_degre = indice;
+    m_indices[0].second = indice;
 }
 
 void Sommets::SetIndiceVectorNN(float indice) // indice non normalise
 {
-    m_indice_vector_NN = indice;
+    m_indices[1].first = indice;
 }
 
 float Sommets::GetIndiceVectorNN() const // indice non normalise
 {
-    return m_indice_vector_NN;
+    return m_indices[1].first;
 }
 
 float Sommets::GetIndiceVector() const// indice normalise
 {
-    return m_indice_vector;
+    return m_indices[1].second;
 }
 
 void Sommets::SetIndiceVector(float indice) // indice normalise
 {
-    m_indice_vector = indice;
+    m_indices[1].second = indice;
 }
 
 void Sommets::SetIndiceProximiteNN(float indice) // indice non normalise
 {
-    m_indice_proximite_NN = indice;
+    m_indices[2].first = indice;
 }
 
 float Sommets::GetIndiceProximiteNN() const// indice non normalise
 {
-    return m_indice_proximite_NN;
+    return m_indices[2].first;
 }
 
 float Sommets::GetIndiceProximite() const// indice normalise
 {
-    return m_indice_proximite;
+    return m_indices[2].second;
 }
 
 void Sommets::SetIndiceProximite(float indice) // indice normalise
 {
-    m_indice_proximite = indice;
+   m_indices[2].second = indice;
 }
 
 void Sommets::SetIndiceIntermediaireNN(float indice) // indice non normalise
 {
-    m_indice_intermediaire_NN = indice;
+    m_indices[3].first = indice;
 }
 
 float Sommets::GetIndiceIntermediaireNN() const// indice non normalise
 {
-    return m_indice_intermediaire_NN;
+    return m_indices[3].first;
 }
 
 float Sommets::GetIndiceIntermediaire() const// indice normalise
 {
-    return m_indice_intermediaire;
+    return m_indices[3].second;
 }
 
 void Sommets::SetIndiceIntermediaire(float indice) // indice normalise
 {
-    m_indice_intermediaire = indice;
+    m_indices[3].second;
 }

@@ -46,14 +46,12 @@ class Sommets
         int m_x;
         int m_y;
         int m_num;
-        float m_indice_degre_NN;
-        float m_indice_degre;
-        float m_indice_vector_NN;
-        float m_indice_vector;
-        float m_indice_proximite_NN;
-        float m_indice_proximite;
-        float m_indice_intermediaire_NN;
-        float m_indice_intermediaire;
+        std::vector<std::pair<float,float>> m_indices;
+        //0->degre
+        //1->veteur
+        //2->proximité
+        //3->intermediare
+        //firdt->non normalisé, second->normalisé
         std::string m_name;
         std::vector<const Sommets*> m_successeurs ;
 };
