@@ -13,14 +13,16 @@ class Graphe
 {
 public:
 
-    Graphe();
+    Graphe(std::string);
     Graphe(std::string nomFichier, bool ponderation);
     ~Graphe()
     {
         for (auto s : m_sommets)
             delete s;
     }
-    void afficher(bool ponderation);
+    void ponderation(std::string);
+    void afficher();
+    void centraliteDegre();
 
     int getOrdre()
     {
@@ -54,7 +56,13 @@ public:
     {
         m_taille=a;
     }
+    double dijkirsta(size_t num_s0, size_t numF);
+    double obtenirPoid(const Sommets* som1, const Sommets* som2);
+    void centraliteDeProxUnSommet(size_t num_s0) ;
+    void centraliteDeProxSommets() ;
+
     void VecteurPropre();
+
 private:
     /// Le réseau est constitué d'une collection de stations
     std::vector<Sommets*> m_sommets;
@@ -62,6 +70,7 @@ private:
     int m_orient;
     int m_taille;
     int m_ordre;
+    bool m_pondere;
 };
 
 #endif // GRAPHE_H

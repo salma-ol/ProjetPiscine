@@ -1,7 +1,7 @@
 #include "Sommets.h"
 #include "svgfile.h"
 
-Sommets::Sommets(int i) : m_x{}, m_y{}, m_num{i}, m_indice{1.0},m_indicenormalise{0.0}, m_name{}
+Sommets::Sommets(int num,char nom,int x, int y) : m_x{x}, m_y{y}, m_num{num}, m_indice_degre_NN{0}, m_indice_degre{0}, m_indice_vector_NN{0}, m_indice_vector{0}, m_indice_proximite_NN{0}, m_indice_proximite{0}, m_indice_intermediaire_NN{0}, m_indice_intermediaire{0}, m_name{nom}
 {
 
 }
@@ -10,22 +10,22 @@ Sommets::~Sommets()
 {
 
 }
-int Sommets::GetX()
+const int Sommets::GetX() const
 {
     return m_x;
 }
 
-int Sommets::GetY()
+const int Sommets::GetY() const
 {
     return m_y;
 }
 
-int Sommets::GetNum()
+const int Sommets::GetNum() const
 {
     return m_num;
 }
 
-std::string Sommets::GetName()
+const std::string Sommets::GetName() const
 {
     return m_name;
 }
@@ -51,22 +51,93 @@ void Sommets::afficherSommet()
     std::cout << m_name << " " << m_x << " " << m_y << std::endl;
 }
 
-void Sommets::setIndice(float a)
+
+const std::vector<const Sommets*>* Sommets::getSuccesseurs() const
 {
-    m_indice=a;
+        return &m_successeurs;
 }
 
-float Sommets::getIndice()
+void Sommets::ajouterSucc(const Sommets* s)
 {
-    return m_indice;
+    m_successeurs.push_back(s);
 }
 
-float Sommets::getIndiceNormalise()
+void Sommets::SetIndiceDegreNN(float indice) // indice non normalise
 {
-    return m_indicenormalise;
+    m_indice_degre_NN = indice;
 }
 
-void Sommets::setIndiceNormalise(float a)
+float Sommets::GetIndiceDegreNN() const// indice non normalise
 {
-    m_indicenormalise=a;
+    return m_indice_degre_NN;
+}
+
+float Sommets::GetIndiceDegre() const // indice normalise
+{
+    return m_indice_degre;
+}
+
+void Sommets::SetIndiceDegre(float indice) // indice normalise
+{
+    m_indice_degre = indice;
+}
+
+void Sommets::SetIndiceVectorNN(float indice) // indice non normalise
+{
+    m_indice_vector_NN = indice;
+}
+
+float Sommets::GetIndiceVectorNN() const // indice non normalise
+{
+    return m_indice_vector_NN;
+}
+
+float Sommets::GetIndiceVector() const// indice normalise
+{
+    return m_indice_vector;
+}
+
+void Sommets::SetIndiceVector(float indice) // indice normalise
+{
+    m_indice_vector = indice;
+}
+
+void Sommets::SetIndiceProximiteNN(float indice) // indice non normalise
+{
+    m_indice_proximite_NN = indice;
+}
+
+float Sommets::GetIndiceProximiteNN() const// indice non normalise
+{
+    return m_indice_proximite_NN;
+}
+
+float Sommets::GetIndiceProximite() const// indice normalise
+{
+    return m_indice_proximite;
+}
+
+void Sommets::SetIndiceProximite(float indice) // indice normalise
+{
+    m_indice_proximite = indice;
+}
+
+void Sommets::SetIndiceIntermediaireNN(float indice) // indice non normalise
+{
+    m_indice_intermediaire_NN = indice;
+}
+
+float Sommets::GetIndiceIntermediaireNN() const// indice non normalise
+{
+    return m_indice_intermediaire_NN;
+}
+
+float Sommets::GetIndiceIntermediaire() const// indice normalise
+{
+    return m_indice_intermediaire;
+}
+
+void Sommets::SetIndiceIntermediaire(float indice) // indice normalise
+{
+    m_indice_intermediaire = indice;
 }

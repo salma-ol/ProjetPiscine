@@ -1,15 +1,11 @@
 #include "Aretes.h"
 #include "svgfile.h"
 
-Aretes::Aretes(int i) : m_num{i}
-{
-    //ctor
-}
+Aretes::Aretes(int i, Sommets*a,Sommets*b): m_sommet{std::make_pair(a,b)}, m_poids{1},m_num{i}
+{}
 
 Aretes::~Aretes()
-{
-    //dtor
-}
+{}
 
 void Aretes::SetSommet1(Sommets* num)
 {
@@ -35,11 +31,11 @@ Sommets* Aretes::GetSommet2()
     return m_sommet.second;
 }
 
-int Aretes::GetNum()
+const int Aretes::GetNum() const
 {
     return m_num;
 }
-double Aretes::GetPoids()
+const double Aretes::GetPoids() const
 {
     return m_poids;
 }
