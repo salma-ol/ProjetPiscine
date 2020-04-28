@@ -68,14 +68,14 @@ void Graphe::afficher()
     for(int i=0; i<m_ordre; i++)
     {
         m_sommets[i]->afficherSommet();
-        svgout.addCross(m_sommets[i]->GetX(), m_sommets[i]->GetY(), 5, "red");
-        svgout.addText(m_sommets[i]->GetX(), m_sommets[i]->GetY()-15, m_sommets[i]->GetName(), "blue");
+        svgout.addCross(100*m_sommets[i]->GetX(), 100*m_sommets[i]->GetY(), 5, "red");
+        svgout.addText(100*m_sommets[i]->GetX(), 100*m_sommets[i]->GetY()-15, m_sommets[i]->GetName(), "blue");
     }
     std::cout << m_taille << std::endl;
     for(int i=0; i<m_taille; i++)
     {
         m_aretes[i]->afficherArete(m_pondere);
-        svgout.addLine(m_aretes[i]->GetSommet1()->GetX(), m_aretes[i]->GetSommet1()->GetY(), m_aretes[i]->GetSommet2()->GetX(), m_aretes[i]->GetSommet2()->GetY(), "blue");
+        svgout.addLine(100*m_aretes[i]->GetSommet1()->GetX(), 100*m_aretes[i]->GetSommet1()->GetY(), 100*m_aretes[i]->GetSommet2()->GetX(), 100*m_aretes[i]->GetSommet2()->GetY(), "blue");
 
         if(m_pondere)
             svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "orange");
@@ -171,7 +171,7 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
             {
                 /* si en passant par s le chemin est plus court, on met à jour
                 la distance et on note que s est le prédécesseur de x*/
-                if((d+obtenirPoid(s,succ[i]))<distances[succ[i]->GetNum()])
+                if((d+obtenirPoid(s,succ[i]))<=distances[succ[i]->GetNum()])
                 {
 
                     distances[succ[i]->GetNum()]=d+obtenirPoid(s,succ[i]) ;
@@ -289,8 +289,8 @@ void Graphe::Intermediarite()
                         ncc++;
                         if( dijkstra(m_sommets[j]->GetNum(),m_sommets[i]->GetNum())+dijkstra(m_sommets[i]->GetNum(),m_sommets[k]->GetNum())==dijkstra(m_sommets[j]->GetNum(),m_sommets[k]->GetNum()))
                             m_sommets[i]->SetIndiceIntermediaireNN(m_sommets[i]->GetIndiceIntermediaireNN()+1);
-
                     }
+
 ///affichage des résultats
     std::cout << "\n\t **Centralite d'Intermediarite**\n";
     for(int i = 0; i<m_ordre; i++)

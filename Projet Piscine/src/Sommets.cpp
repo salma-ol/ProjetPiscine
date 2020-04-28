@@ -1,7 +1,7 @@
 #include "Sommets.h"
 #include "svgfile.h"
 
-Sommets::Sommets(int num,char nom,int x, int y) : m_x{x}, m_y{y}, m_num{num}, m_indices{4,std::make_pair(0,0)}, m_name{nom}
+Sommets::Sommets(int num,char nom,int x, int y) : m_x{x}, m_y{y}, m_num{num}, m_indices{4,std::make_pair(0.0,0.0)}, m_name{nom}
 {}
 
 Sommets::~Sommets()
@@ -117,6 +117,7 @@ float Sommets::GetIndiceProximite() const// indice normalise
 
 void Sommets::SetIndiceProximite(float indice) // indice normalise
 {
+
    m_indices[2].second = indice;
 }
 
@@ -137,5 +138,5 @@ float Sommets::GetIndiceIntermediaire() const// indice normalise
 
 void Sommets::SetIndiceIntermediaire(float indice) // indice normalise
 {
-    m_indices[3].second;
+    m_indices[3].second=indice;
 }

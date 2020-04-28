@@ -27,9 +27,9 @@ int main()
     }
 
     a.VecteurPropre();
-    a.centraliteDegre();
-    a.centraliteDeProxSommets();
+    //a.centraliteDegre();
+    //a.centraliteDeProxSommets();
     a.Intermediarite();
-    a.afficher();
+    //a.afficher();
     return 0;
 }
