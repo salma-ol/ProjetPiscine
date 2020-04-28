@@ -22,10 +22,54 @@ public:
     void afficher(bool ponderation);
     void centraliteDegre();
 
+<<<<<<< Updated upstream
+=======
+    int getOrdre()
+    {
+        return m_ordre;
+    }
+    int getTaille()
+    {
+        return m_taille;
+    }
+    int getOrient()
+    {
+        return m_orient;
+    }
+    std::vector<Sommets*> *getSommets()
+    {
+        return &m_sommets;
+    }
+    std::vector<Aretes*> *getAretes()
+    {
+        return &m_aretes;
+    }
+    void setOrient(int a)
+    {
+        m_orient=a;
+    }
+    void setOrdre(int a)
+    {
+        m_ordre=a;
+    }
+    void setTaille(int a)
+    {
+        m_taille=a;
+    }
+    double dijkstra(size_t num_s0, size_t numF);
+    double obtenirPoid(const Sommets* som1, const Sommets* som2);
+    void centraliteDeProxUnSommet(size_t num_s0) ;
+    void centraliteDeProxSommets() ;
+>>>>>>> Stashed changes
 
 <<<<<<< Updated upstream
 
+<<<<<<< Updated upstream
 =======
+>>>>>>> Stashed changes
+=======
+    void Intermediarite();
+
 >>>>>>> Stashed changes
 private:
     /// Le réseau est constitué d'une collection de stations
