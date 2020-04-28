@@ -25,8 +25,11 @@ int main()
         std::cin>>fich;
         a.ponderation(fich);
     }
+
     a.VecteurPropre();
     a.centraliteDegre();
     a.centraliteDeProxSommets();
+    a.Intermediarite();
+
     return 0;
 }

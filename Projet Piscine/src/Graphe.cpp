@@ -94,13 +94,23 @@ void Graphe::centraliteDegre()
         if(m_orient == false)
             m_aretes[i]->GetSommet2()->SetIndiceDegreNN(m_aretes[i]->GetSommet2()->GetIndiceDegreNN()+1);
     }
-
+    ///affcichage des résultats
     std::cout << "\n\t**Indice de centralite de degre**\n"<<std::endl;
     for(int i=0; i<m_ordre; i++)
     {
         m_sommets[i]->SetIndiceDegre(m_sommets[i]->GetIndiceDegreNN()/(m_ordre-1));
         std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceDegreNN()<<" \tnormalise : " << m_sommets[i]->GetIndiceDegre()<< std::endl;
     }
+
+    ///sauvegarde des résultats
+    std::ofstream ofs{"ResultatCentraliteDegre.txt"};
+    if(!ofs)
+    {
+        std::cout<<"pbm ouverture fichier degre";
+        exit(0);
+    }
+    for(auto a:m_sommets)
+        ofs<<"Sommet "<<a->GetNum()<<" : "<<a->GetIndiceDegreNN()<<"\t"<<a->GetIndiceDegre()<<std::endl;
 
 }
 
@@ -126,7 +136,7 @@ double Graphe::obtenirPoid(const Sommets* som1, const Sommets* som2)
     return r ;
 }
 
-double Graphe::dijkirsta(size_t num_s0, size_t numF)
+double Graphe::dijkstra(size_t num_s0, size_t numF)
 {
     std::vector<int> marquages((int)m_sommets.size(),0) ;
     std::vector<double> distances((double)m_sommets.size(),999) ;
@@ -174,37 +184,46 @@ double Graphe::dijkirsta(size_t num_s0, size_t numF)
     return distances[numF] ;
 }
 
-void Graphe::centraliteDeProxUnSommet(size_t num_s0)
+void Graphe::centraliteDeProxUnSommet(size_t num_s0, Sommets* Actuel)
 {
     double cProx = 0;
     for(size_t i=0 ; i< m_sommets.size(); ++i)
     {
         if(m_sommets[i]->GetNum() != (int)num_s0)
         {
-            cProx = cProx + dijkirsta(num_s0,(size_t)(m_sommets[i]->GetNum())) ;
+            cProx = cProx + dijkstra(num_s0,(size_t)(m_sommets[i]->GetNum())) ;
 
         }
     }
+    ///affichage des resultats
     if ( cProx ==0 )
     {
+        Actuel->SetIndiceProximiteNN(0);
         std::cout << std::endl <<  num_s0 << " : "<< "Pas d'indice" << std::endl ;
     }
     else{
+        Actuel->SetIndiceProximiteNN(1/cProx);
+        Actuel->SetIndiceProximite((m_ordre-1)/cProx);
         std::cout << std::endl << num_s0 << " : "<<  1/cProx << "     " <<  (m_ordre-1)/cProx ;
     }
-
 }
 
 void Graphe::centraliteDeProxSommets()
 {
     std::cout << "\n\t**Centralite de Proximite** " ;
-    for(size_t i=0 ; i< m_sommets.size(); ++i)
+    for(auto a:m_sommets)
+       centraliteDeProxUnSommet((size_t)(a->GetNum()), a);
+
+    ///sauvegarde des résultats
+    std::ofstream ofs{"ResultatCentraliteDeProximite.txt"};
+    if(!ofs)
     {
-       centraliteDeProxUnSommet((size_t)(m_sommets[i]->GetNum())) ;
+        std::cout<<"pbm ouverture fichier prox";
+        exit(0);
     }
-
+    for(auto a:m_sommets)
+        ofs<<"Sommet "<<a->GetNum()<<" : "<<a->GetIndiceProximiteNN()<<"\t"<<a->GetIndiceProximite()<<std::endl;
 }
-
 ///Centralité de vecteur propre
 
 void Graphe::VecteurPropre()
@@ -242,14 +261,24 @@ void Graphe::VecteurPropre()
     for(auto a:m_sommets)//normalise les indices
         a->SetIndiceVector(a->GetIndiceVectorNN()/(m_ordre-1));
 
+    ///affichage des résultats
     std::cout<<"\t**Centralite de vecteur propre**\n\n";
     for(auto a : m_sommets)
         std::cout << "Sommet " << a->GetName() << " : \tnon normalise : " << a->GetIndiceVectorNN()<<" \tnormalise : "<<a->GetIndiceVector()<<std::endl;
 
-    adj.erase(adj.begin(), adj.end());
+    ///sauvegarde des résultats
+    std::ofstream ofs{"ResultatCentraliteVecteurPropre.txt"};
+    if(!ofs)
+    {
+        std::cout<<"pbm ouverture fichier vecteur";
+        exit(0);
+    }
+    for(auto a:m_sommets)
+        ofs<<"Sommet "<< a->GetName()<<" : "<<a->GetIndiceVectorNN()<<"\t"<<a->GetIndiceVector()<<std::endl;
+
 }
 
-
+///centralite d'intermediarité
 void Graphe::Intermediarite()
 {
     int ncc = 0;
@@ -264,7 +293,7 @@ void Graphe::Intermediarite()
                             m_sommets[i]->SetIndiceIntermediaireNN(m_sommets[i]->GetIndiceIntermediaireNN()+1);
 
                     }
-
+///affichage des résultats
     std::cout << "\n\t **Centralite d'Intermediarite**\n";
     for(int i = 0; i<m_ordre; i++)
     {
@@ -272,4 +301,14 @@ void Graphe::Intermediarite()
         m_sommets[i]->SetIndiceIntermediaire((2*m_sommets[i]->GetIndiceIntermediaireNN())/(pow(m_ordre, 2)-3*m_ordre+2));
         std::cout << "Sommet " << m_sommets[i]->GetNum() << " : "<< "\tnon normalise : " << m_sommets[i]->GetIndiceIntermediaireNN() << "\t\tnormalise : " << m_sommets[i]->GetIndiceIntermediaire()<<std::endl;
     }
+///sauvegarde des résultats
+    std::ofstream ofs{"ResultatCentraliteD'Intermediarite.txt"};
+    if(!ofs)
+    {
+        std::cout<<"pbm ouverture fichier intermediarite";
+        exit(0);
+    }
+    for(auto a:m_sommets)
+        ofs<<"Sommet "<<a->GetNum()<<" : "<<a->GetIndiceIntermediaireNN()<<"\t"<<a->GetIndiceIntermediaire()<<std::endl;
+
 }

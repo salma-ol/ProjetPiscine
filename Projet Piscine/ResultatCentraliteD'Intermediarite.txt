@@ -1,0 +1,4 @@
+Sommet 0 : 0	0
+Sommet 1 : 0.166667	0
+Sommet 2 : 0	0
+Sommet 3 : 0	0
