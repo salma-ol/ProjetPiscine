@@ -63,6 +63,7 @@ public:
 
     void VecteurPropre();
     void Intermediarite();
+    Graphe operator=(Graphe const&);
 
 private:
     /// Le réseau est constitué d'une collection de stations

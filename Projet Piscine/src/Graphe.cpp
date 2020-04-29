@@ -31,18 +31,16 @@ Graphe::Graphe(std::string nomFichier)
         m_sommets.push_back(new Sommets(num,nom, x, y));
     }
     ifs>>m_taille;
-    for(int i=0; i<m_taille; ++i)
-    {
-        ifs>>num;
-        ifs>>j;
-        ifs>>k;
-        m_aretes.push_back(new Aretes(num, m_sommets[j],m_sommets[k]));
-        m_sommets[j]->ajouterSucc(m_sommets[k]);
-        if(m_orient == 0 )
+        for(int i=0; i<m_taille; ++i)
         {
-            m_sommets[k]->ajouterSucc(m_sommets[j]);
+            ifs>>num;
+            ifs>>j;
+            ifs>>k;
+            m_aretes.push_back(new Aretes(num, m_sommets[j],m_sommets[k]));
+            m_sommets[j]->ajouterSucc(m_sommets[k]);
+            if(m_orient == 0 )
+                m_sommets[k]->ajouterSucc(m_sommets[j]);
         }
-    }
 }
 void Graphe::ponderation(std::string fich)
 {
@@ -81,9 +79,8 @@ void Graphe::afficher()
     {
         m_aretes[i]->afficherArete(m_pondere);
         svgout.addLine(100*m_aretes[i]->GetSommet1()->GetX(), 100*m_aretes[i]->GetSommet1()->GetY(), 100*m_aretes[i]->GetSommet2()->GetX(), 100*m_aretes[i]->GetSommet2()->GetY(), "blue");
-
         if(m_pondere)
-            svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "orange");
+            svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())*50, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())*50, m_aretes[i]->GetPoids(), "orange");
     }
 }
 
@@ -114,7 +111,7 @@ void Graphe::centraliteDegre()
     for(int i=0; i<m_ordre; i++)
     {
         m_sommets[i]->SetIndiceDegre(m_sommets[i]->GetIndiceDegreNN()/(m_ordre-1));
-        std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceDegreNN()<<" \tnormalise : " << m_sommets[i]->GetIndiceDegre()<< std::endl;
+        std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceDegreNN()<<" \t\tnormalise : " << m_sommets[i]->GetIndiceDegre()<< std::endl;
     }
 
     ///sauvegarde des résultats
@@ -210,15 +207,16 @@ void Graphe::centraliteDeProxUnSommet(size_t num_s0, Sommets* Actuel)
         }
     }
     ///affichage des resultats
-    if ( cProx ==0 )
+    if ( cProx ==0 )//
     {
         Actuel->SetIndiceProximiteNN(0);
-        std::cout << std::endl <<  num_s0 << " : "<< "Pas d'indice" << std::endl ;
+        Actuel->SetIndiceProximite(0);
+        std::cout << std::endl <<  num_s0 << " : "<<Actuel->GetIndiceProximiteNN();
     }
     else{
         Actuel->SetIndiceProximiteNN(1/cProx);
         Actuel->SetIndiceProximite((m_ordre-1)/cProx);
-        std::cout << std::endl << num_s0 << " : "<<  1/cProx << "     " <<  (m_ordre-1)/cProx ;
+        std::cout << std::endl << num_s0 << " : "<<  1/cProx <<"\t\t"<<  (m_ordre-1)/cProx ;
     }
 }
 
@@ -278,7 +276,7 @@ void Graphe::VecteurPropre()
     ///affichage des résultats
     std::cout<<"\t**Centralite de vecteur propre**\n\n";
     for(auto a : m_sommets)
-        std::cout << "Sommet " << a->GetName() << " : \tnon normalise : " << a->GetIndiceVectorNN()<<" \tnormalise : "<<a->GetIndiceVector()<<std::endl;
+        std::cout << "Sommet " << a->GetName() << " : \tnon normalise : " << a->GetIndiceVectorNN()<<" \t\tnormalise : "<<a->GetIndiceVector()<<std::endl;
 
     ///sauvegarde des résultats
     std::ofstream ofs{"ResultatCentraliteVecteurPropre.txt"};
@@ -325,4 +323,21 @@ void Graphe::Intermediarite()
     for(auto a:m_sommets)
         ofs<<"Sommet "<<a->GetNum()<<" : "<<a->GetIndiceIntermediaireNN()<<"\t"<<a->GetIndiceIntermediaire()<<std::endl;
 
+}
+
+
+ Graphe Graphe::operator=(Graphe const&b)
+{
+    Graphe a;
+    a.m_pondere=b.m_pondere;
+    a.m_orient=b.m_orient;
+    a.m_ordre=b.m_ordre;
+    a.m_taille=b.m_taille;
+    a.m_sommets.clear();
+    a.m_aretes.clear();
+    for(int i=0; i<a.m_ordre; ++i)
+        a.m_sommets.push_back(b.m_sommets[i]);
+    for(int i=0; i<a.m_taille; ++i)
+        a.m_aretes.push_back(b.m_aretes[i]);
+    return a;
 }
