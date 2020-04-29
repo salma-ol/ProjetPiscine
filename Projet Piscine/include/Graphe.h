@@ -13,8 +13,8 @@ class Graphe
 {
 public:
 
-    Graphe();
-    Graphe(std::string nomFichier);
+    Graphe(std::string);
+    Graphe(std::string nomFichier, bool ponderation);
     ~Graphe()
     {
         for (auto s : m_sommets)
@@ -24,7 +24,6 @@ public:
     void afficher();
     void centraliteDegre();
     void supprimerArete() ;
-
     int getOrdre()
     {
         return m_ordre;
@@ -61,9 +60,13 @@ public:
     double obtenirPoid(const Sommets* som1, const Sommets* som2);
     void centraliteDeProxUnSommet(size_t num_s0, Sommets* Actuel) ;
     void centraliteDeProxSommets() ;
+
     void VecteurPropre();
     void Intermediarite();
-    Graphe operator=(Graphe const&);
+
+    std::vector<int> BFS(int num_s0)const ;
+    void rechercher_afficher_CC() ;
+    void supprimerAretes() ;
 
 private:
     /// Le réseau est constitué d'une collection de stations

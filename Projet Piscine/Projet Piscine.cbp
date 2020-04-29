@@ -39,6 +39,8 @@
 		<Unit filename="include/Sommets.h" />
 		<Unit filename="include/svgfile.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="sauvegarde.cpp" />
+		<Unit filename="sauvegarde.h" />
 		<Unit filename="src/Aretes.cpp" />
 		<Unit filename="src/Graphe.cpp" />
 		<Unit filename="src/Sommets.cpp" />

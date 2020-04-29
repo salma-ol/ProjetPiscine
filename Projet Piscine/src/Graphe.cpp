@@ -4,11 +4,8 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
+#include <queue>
 
-Graphe::Graphe()
-{
-
-}
 Graphe::Graphe(std::string nomFichier)
 {
     m_pondere=false;
@@ -18,11 +15,11 @@ Graphe::Graphe(std::string nomFichier)
     if(!ifs)
     {
         std::cout<<"erreur ouverture fichier";
-        exit(0);
+        return;
     }
     ifs>>m_orient;
     ifs>>m_ordre;
-    for(int i=0; i<m_ordre;++i)
+    for(int i=0; i<m_ordre; ++i)
     {
         ifs>>num;
         ifs>>nom;
@@ -31,16 +28,18 @@ Graphe::Graphe(std::string nomFichier)
         m_sommets.push_back(new Sommets(num,nom, x, y));
     }
     ifs>>m_taille;
-        for(int i=0; i<m_taille; ++i)
+    for(int i=0; i<m_taille; ++i)
+    {
+        ifs>>num;
+        ifs>>j;
+        ifs>>k;
+        m_aretes.push_back(new Aretes(num, m_sommets[j],m_sommets[k]));
+        m_sommets[j]->ajouterSucc(m_sommets[k]);
+        if(m_orient == 0 )
         {
-            ifs>>num;
-            ifs>>j;
-            ifs>>k;
-            m_aretes.push_back(new Aretes(num, m_sommets[j],m_sommets[k]));
-            m_sommets[j]->ajouterSucc(m_sommets[k]);
-            if(m_orient == 0 )
-                m_sommets[k]->ajouterSucc(m_sommets[j]);
+            m_sommets[k]->ajouterSucc(m_sommets[j]);
         }
+    }
 }
 void Graphe::ponderation(std::string fich)
 {
@@ -52,7 +51,7 @@ void Graphe::ponderation(std::string fich)
         return;
     }
     ifs>>taile;
-    for(int i=0; i<taile;++i)
+    for(int i=0; i<taile; ++i)
     {
         ifs>>a;
         ifs>>b;
@@ -79,19 +78,178 @@ void Graphe::afficher()
     {
         m_aretes[i]->afficherArete(m_pondere);
         svgout.addLine(100*m_aretes[i]->GetSommet1()->GetX(), 100*m_aretes[i]->GetSommet1()->GetY(), 100*m_aretes[i]->GetSommet2()->GetX(), 100*m_aretes[i]->GetSommet2()->GetY(), "blue");
+
         if(m_pondere)
-            svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())*50, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())*50, m_aretes[i]->GetPoids(), "orange");
+            svgout.addText((m_aretes[i]->GetSommet1()->GetX()+m_aretes[i]->GetSommet2()->GetX())/2, (m_aretes[i]->GetSommet1()->GetY()+m_aretes[i]->GetSommet2()->GetY())/2, m_aretes[i]->GetPoids(), "orange");
     }
 }
+
 
 void Graphe::supprimerArete()
 {
     int n ;
     std::cout << "Saisir l'indice de l'arete que vous voulez supprimer" << std::endl ;
     std::cin >> n ;
-    m_aretes.erase(m_aretes.begin()+n) ;
+
     m_taille -= 1 ;
-    for(size_t i=n ; i<m_aretes.size() ; ++i) { m_aretes[i]->SetNum(m_aretes[i]->GetNum()-1) ; }
+
+    ///supression au niveau des succeseur :
+    const Sommets* s = m_sommets[(m_aretes[n]->GetSommet1())->GetNum()] ;
+    std::vector<const Sommets*> succ = *s->getSuccesseurs();
+
+    for(size_t j=0 ; j< succ.size() ; ++j)
+    {
+        if( (succ[j]->GetNum() == (m_aretes[n]->GetSommet2())->GetNum()) )
+        {
+            succ.erase(succ.begin() + j) ;
+            //std::cout << m_sommets[(m_aretes[n]->GetSommet1())->GetNum()]->GetNum() << "  " << succ[j]->GetNum()  ;
+            //std::cout << "  taille :" << succ.size() << std::endl ;
+        }
+    }
+    m_sommets[(m_aretes[n]->GetSommet1())->GetNum()]->SetSucceseurs(succ) ;
+    if(m_orient==0)
+    {
+        const Sommets* s = m_sommets[(m_aretes[n]->GetSommet2())->GetNum()] ;
+        std::vector<const Sommets*> succ = *s->getSuccesseurs();
+        for(size_t j=0 ; j< succ.size() ; ++j)
+        {
+            if( (succ[j]->GetNum() == (m_aretes[n]->GetSommet1())->GetNum()) )
+            {
+                succ.erase(succ.begin() + j) ;
+                //std::cout << m_sommets[(m_aretes[n]->GetSommet2())->GetNum()]->GetNum() << "  " << succ[j]->GetNum()  ;
+                //std::cout << "taille :" << succ.size() << std::endl ;
+            }
+        }
+        m_sommets[(m_aretes[n]->GetSommet2())->GetNum()]->SetSucceseurs(succ) ;
+    }
+    m_aretes.erase(m_aretes.begin()+n) ;
+
+    for(size_t i=n ; i<m_aretes.size() ; ++i)
+    {
+        m_aretes[i]->SetNum(m_aretes[i]->GetNum()-1) ;
+    }
+    /* Verification for(size_t j=0 ; j<m_sommets.size() ; ++j)
+    {
+    std::cout << "successeur : " ;
+    succ = (*m_sommets[j]->getSuccesseurs()) ;
+    for(size_t i=0 ; i< succ.size() ; ++i)
+    {
+        std::cout<< succ[i]->GetNum() ;
+    }
+    } */
+    rechercher_afficher_CC() ;
+    afficher() ;
+}
+
+void Graphe::supprimerAretes()
+{
+    int n =0 ;
+    do{
+        supprimerArete() ;
+        std::cout << "Si vous ne voulez plus supprimer d'aretes taper -1 sinon 0"  ;
+        std::cin>>n ;
+    }while(n!=-1) ;
+}
+
+/// Recherche composante connexe
+
+std::vector<int> Graphe::BFS(int num_s0)const
+{
+    /// déclaration de la file
+    std::queue<int> file ;
+    /// pour le marquage
+    //vect avec m_sommets.size() elements tous initialisé à 0
+    //0 --> non decouvert (B) 1--> decouvert (G)
+    std::vector<int> couleurs((int)m_sommets.size(),0);
+    ///pour noter les prédécesseurs : on note les numéros des prédécesseurs (on pourrait stocker des pointeurs sur ...)
+    //vect avec m_sommets.size() elements tous initialisé à -1
+    std::vector<int> preds((int)m_sommets.size(),-1);
+    ///étape initiale : on enfile et on marque le sommet initial
+    file.push(num_s0) ;
+    couleurs[num_s0] = 1 ;
+
+    const Sommets* s;
+    ///tant que la file n'est pas vide
+    while(!file.empty())
+    {
+        // s corresponds au 1er de la file (donc celui qui va etre defile)
+        s = m_sommets[file.front()] ;
+        ///on défile le prochain sommet
+        file.pop() ;
+        ///pour chaque successeur du sommet défilé
+        for(auto succ:(*s->getSuccesseurs()))
+        {
+            ///s'il n'est pas marqué
+            if(couleurs[succ->GetNum()] == 0)
+            {
+                ///on le marque
+                couleurs[succ->GetNum()] = 1 ;
+                ///on note son prédecesseur (=le sommet défilé)
+                preds[succ->GetNum()] = s->GetNum() ;
+                ///on le met dans la file
+                file.push(succ->GetNum()) ;
+            }
+        }
+    }
+    return preds;
+}
+
+void Graphe::rechercher_afficher_CC()
+{
+    size_t num=0;
+    bool test;
+    int ncc=0;
+    ///pour noter les numéros de CC
+    std::vector<int> cc(m_sommets.size(),-1);
+    do
+    {
+        int nbImpair=0 ;
+        cc[num]=num;
+        std::cout<<std::endl<<"composante connexe "<<ncc<<" : "<<num<<" ";
+        ncc++;
+        //Determination de degre du sommet[num]
+        if( ((*m_sommets[num]->getSuccesseurs()).size())%2 != 0)
+        {
+            nbImpair++ ;
+        }
+
+        ///lancement d'un BFS sur le sommet num
+        std::vector<int> arbre_BFS=BFS(num);
+        ///affichage des sommets decouverts lors du parcours (ceux qui ont un predecesseur
+        for(size_t i=0; i<arbre_BFS.size(); ++i)
+        {
+            if ((i!=num)&&(arbre_BFS[i]!=-1))
+            {
+                cc[i]=num;
+                std::cout<<i<<" ";
+                //Determination si cc[i] a un nbre paire ou imparire de succeseur
+                if( ((*m_sommets[i]->getSuccesseurs()).size())%2 != 0)
+                {
+                    nbImpair++ ;
+                }
+            }
+        }
+        /*if(nbImpair==2){
+                std::cout<< " --> La cc " << num << " est une chaine eulerienne" <<std::endl ;
+        }else if(nbImpair==0){
+            std::cout<< " --> La cc " << num << " est un cycle eulerien" <<std::endl ;
+        }else{
+            std::cout<< " --> La cc " << num << " n'est ni un cycle eulerien ni une chaine eulerienne " <<std::endl ;}*/
+        ///recherche d'un sommet non exploré
+        ///pour relancer un BFS au prochain tour
+        test=false;
+        for(size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if (cc[i]==-1)
+            {
+                num=i;
+                test=true;
+                break;
+            }
+        }
+    }
+    while(test==true);
+    std::cout<<std::endl;
 }
 
 /// CENTRALITE DE DEGRE
@@ -109,7 +267,7 @@ void Graphe::centraliteDegre()
     for(int i=0; i<m_ordre; i++)
     {
         m_sommets[i]->SetIndiceDegre(m_sommets[i]->GetIndiceDegreNN()/(m_ordre-1));
-        std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceDegreNN()<<" \t\tnormalise : " << m_sommets[i]->GetIndiceDegre()<< std::endl;
+        std::cout << "Sommet "<<m_sommets[i]->GetName()<<" : \tnon normalise : "<< m_sommets[i]->GetIndiceDegreNN()<<" \tnormalise : " << m_sommets[i]->GetIndiceDegre()<< std::endl;
     }
 
     ///sauvegarde des résultats
@@ -142,6 +300,7 @@ double Graphe::obtenirPoid(const Sommets* som1, const Sommets* som2)
     for(size_t i=0 ; i< m_aretes.size() ; ++i)
         if((som1 == m_aretes[i]->GetSommet1() )&&(som2 == m_aretes[i]->GetSommet2()))
             r = m_aretes[i]->GetPoids() ;
+
     return r ;
 }
 
@@ -149,7 +308,7 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
 {
     std::vector<int> marquages((int)m_sommets.size(),0) ;
     std::vector<double> distances((double)m_sommets.size(),999) ;
-    std::vector<Sommets*> prec(0);
+
     distances[num_s0]=0;
     std::vector<const Sommets*> succ ;
     std::vector<int> poid ;
@@ -161,8 +320,8 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
 
         /* Sélectionner et marquer le sommet s non marqué ayant la plus petite distance
         au sommet initial s0 */
-        double d=998;
-        int n=0; //Va correspondre à l'indice du sommet avec la plus petite distance à s0
+        double d=999 ;
+        int n=0 ; //Va correspondre à l'indice du sommet avec la plus petite distance à s0
 
         for(size_t i=0; i<m_sommets.size() ; ++i)
             if(marquages[i]==0)
@@ -182,8 +341,11 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
             {
                 /* si en passant par s le chemin est plus court, on met à jour
                 la distance et on note que s est le prédécesseur de x*/
-                if((d+obtenirPoid(s,succ[i]))<distances[succ[i]->GetNum()])
-                    distances[succ[i]->GetNum()]=d+obtenirPoid(s,succ[i]);
+                if((d+obtenirPoid(s,succ[i]))<=distances[succ[i]->GetNum()])
+                {
+
+                    distances[succ[i]->GetNum()]=d+obtenirPoid(s,succ[i]) ;
+                }
             }
         }
     }
@@ -201,16 +363,16 @@ void Graphe::centraliteDeProxUnSommet(size_t num_s0, Sommets* Actuel)
         }
     }
     ///affichage des resultats
-    if ( cProx ==0 )//
+    if ( cProx ==0 )
     {
         Actuel->SetIndiceProximiteNN(0);
-        Actuel->SetIndiceProximite(0);
-        std::cout << std::endl <<  num_s0 << " : "<<Actuel->GetIndiceProximiteNN();
+        std::cout << std::endl <<  num_s0 << " : "<< "Pas d'indice" << std::endl ;
     }
-    else{
+    else
+    {
         Actuel->SetIndiceProximiteNN(1/cProx);
         Actuel->SetIndiceProximite((m_ordre-1)/cProx);
-        std::cout << std::endl << num_s0 << " : "<<  1/cProx <<"\t\t"<<  (m_ordre-1)/cProx ;
+        std::cout << std::endl << num_s0 << " : "<<  1/cProx << "     " <<  (m_ordre-1)/cProx ;
     }
 }
 
@@ -218,7 +380,7 @@ void Graphe::centraliteDeProxSommets()
 {
     std::cout << "\n\t**Centralite de Proximite** " ;
     for(auto a:m_sommets)
-       centraliteDeProxUnSommet((size_t)(a->GetNum()), a);
+        centraliteDeProxUnSommet((size_t)(a->GetNum()), a);
 
     ///sauvegarde des résultats
     std::ofstream ofs{"ResultatCentraliteDeProximite.txt"};
@@ -262,7 +424,8 @@ void Graphe::VecteurPropre()
         for(int i=0; i<m_ordre; ++i)//on donne la nouvelle valeure aux indices de chaques sommets
             m_sommets[i]->SetIndiceVectorNN( adj[i]/lambda);
 
-    }while(lambda/plambda>1.5);//lambda/plambda => variations de lambda
+    }
+    while(lambda/plambda>1.5); //lambda/plambda => variations de lambda
 
     for(auto a:m_sommets)//normalise les indices
         a->SetIndiceVector(a->GetIndiceVectorNN()/(m_ordre-1));
@@ -270,7 +433,7 @@ void Graphe::VecteurPropre()
     ///affichage des résultats
     std::cout<<"\t**Centralite de vecteur propre**\n\n";
     for(auto a : m_sommets)
-        std::cout << "Sommet " << a->GetName() << " : \tnon normalise : " << a->GetIndiceVectorNN()<<" \t\tnormalise : "<<a->GetIndiceVector()<<std::endl;
+        std::cout << "Sommet " << a->GetName() << " : \tnon normalise : " << a->GetIndiceVectorNN()<<" \tnormalise : "<<a->GetIndiceVector()<<std::endl;
 
     ///sauvegarde des résultats
     std::ofstream ofs{"ResultatCentraliteVecteurPropre.txt"};
@@ -291,7 +454,7 @@ void Graphe::Intermediarite()
     for(int i=0; i<m_ordre; ++i)
         for(int j=0; i<m_ordre; ++i)
             if(j!=i)
-                for(int k=j+1; k<m_ordre;++k)
+                for(int k=j+1; k<m_ordre; ++k)
                     if(k!=i)
                     {
                         ncc++;
@@ -317,21 +480,4 @@ void Graphe::Intermediarite()
     for(auto a:m_sommets)
         ofs<<"Sommet "<<a->GetNum()<<" : "<<a->GetIndiceIntermediaireNN()<<"\t"<<a->GetIndiceIntermediaire()<<std::endl;
 
-}
-
-
- Graphe Graphe::operator=(Graphe const&b)
-{
-    Graphe a;
-    a.m_pondere=b.m_pondere;
-    a.m_orient=b.m_orient;
-    a.m_ordre=b.m_ordre;
-    a.m_taille=b.m_taille;
-    a.m_sommets.clear();
-    a.m_aretes.clear();
-    for(int i=0; i<a.m_ordre; ++i)
-        a.m_sommets.push_back(b.m_sommets[i]);
-    for(int i=0; i<a.m_taille; ++i)
-        a.m_aretes.push_back(b.m_aretes[i]);
-    return a;
 }
