@@ -11,6 +11,7 @@ int main()
 {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     charger();
 =======
     int rep;
@@ -41,6 +42,17 @@ int main()
             std::cout<<"nom du fichier a charger : ";
             std::cin>>fich;
             changement =0;
+=======
+    int rep, rep2, changement = 1;
+    std::string fich, ponde;
+    while(1)
+    {
+        if(changement ==1)
+        {
+            std::cout<<"nom du fichier a charger : ";
+            std::cin>>fich;
+            changement = 0;
+>>>>>>> Stashed changes
 
             do
             {
@@ -51,7 +63,10 @@ int main()
         }
         Graphe a(fich);
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         if(rep==1)
         {
             std::cout<<"nom fichier ponderation : ";
@@ -61,10 +76,17 @@ int main()
         }
         do
         {
+<<<<<<< Updated upstream
             std::cout<<"\nVoulez vous:\n1:\tUtiliser la centralite de vecteur propre\n2:\tUtiliser la centralite de degre\n3:\tUtiliser la centralite de proximite\n4:\tUtiliser la centralite d'intermediare\n5:\tAfficher\n6:\tCharger un nouveau graphe\n7:\tAppliquer une nouvelle ponderation au graphe\n8:supprimer une arete\n9:quitter\n";
             std::cin>>rep2;
         }
         while(rep2<1 || rep2>9 || changement == 1);
+=======
+            std::cout<<"\nVoulez vous:\n\n1:\tUtiliser la centralite de vecteur propre\n2:\tUtiliser la centralite de degre\n3:\tUtiliser la centralite de proximite\n4:\tUtiliser la centralite d'intermediare\n5:\tAfficher\n6:\tCharger un nouveau graphe\n7:\tAppliquer une nouvelle ponderation au graphe\n8:\tSupprimer une arete\n9:\tQuitter\n";
+            std::cin>>rep2;
+        }
+        while(rep2<1 || rep2>9);
+>>>>>>> Stashed changes
         switch(rep2)
         {
         case 1:
@@ -83,7 +105,11 @@ int main()
             a.afficher();
             break;
         case 6:
+<<<<<<< Updated upstream
             changement = 1;
+=======
+            changement =1;
+>>>>>>> Stashed changes
             break;
         case 7:
             rep=1;

@@ -3627,6 +3627,7 @@
 =======
 <line x1="95" y1="195" x2="105" y2="205" stroke="red" />
 <line x1="95" y1="205" x2="105" y2="195" stroke="red" />
+<<<<<<< Updated upstream
 <text x="100" y="185" fill="blue" >A</text>
 <line x1="295" y1="395" x2="305" y2="405" stroke="red" />
 <line x1="295" y1="405" x2="305" y2="395" stroke="red" />
@@ -3645,6 +3646,43 @@
 <text x="150" y="-150" fill="blue" >5</text>
 <line x1="300" y1="400" x2="200" y2="200" stroke="blue" />
 <text x="50" y="100" fill="blue" >1</text>
+>>>>>>> Stashed changes
+=======
+<text x="100" y="185" fill="blue" >C</text>
+<line x1="295" y1="195" x2="305" y2="205" stroke="red" />
+<line x1="295" y1="205" x2="305" y2="195" stroke="red" />
+<text x="300" y="185" fill="blue" >D</text>
+<line x1="395" y1="195" x2="405" y2="205" stroke="red" />
+<line x1="395" y1="205" x2="405" y2="195" stroke="red" />
+<text x="400" y="185" fill="blue" >E</text>
+<line x1="495" y1="195" x2="505" y2="205" stroke="red" />
+<line x1="495" y1="205" x2="505" y2="195" stroke="red" />
+<text x="500" y="185" fill="blue" >F</text>
+<line x1="695" y1="195" x2="705" y2="205" stroke="red" />
+<line x1="695" y1="205" x2="705" y2="195" stroke="red" />
+<text x="700" y="185" fill="blue" >G</text>
+<line x1="195" y1="295" x2="205" y2="305" stroke="red" />
+<line x1="195" y1="305" x2="205" y2="295" stroke="red" />
+<text x="200" y="285" fill="blue" >H</text>
+<line x1="595" y1="295" x2="605" y2="305" stroke="red" />
+<line x1="595" y1="305" x2="605" y2="295" stroke="red" />
+<text x="600" y="285" fill="blue" >I</text>
+<line x1="200" y1="100" x2="300" y2="200" stroke="blue" />
+<text x="250" y="150" fill="orange" >2</text>
+<line x1="600" y1="100" x2="500" y2="200" stroke="blue" />
+<text x="550" y="150" fill="orange" >1</text>
+<line x1="100" y1="200" x2="300" y2="200" stroke="blue" />
+<text x="200" y="200" fill="orange" >5</text>
+<line x1="300" y1="200" x2="400" y2="200" stroke="blue" />
+<text x="350" y="200" fill="orange" >1</text>
+<line x1="400" y1="200" x2="500" y2="200" stroke="blue" />
+<text x="450" y="200" fill="orange" >1</text>
+<line x1="500" y1="200" x2="700" y2="200" stroke="blue" />
+<text x="600" y="200" fill="orange" >1</text>
+<line x1="200" y1="300" x2="300" y2="200" stroke="blue" />
+<text x="250" y="250" fill="orange" >1</text>
+<line x1="600" y1="300" x2="500" y2="200" stroke="blue" />
+<text x="550" y="250" fill="orange" >1</text>
 >>>>>>> Stashed changes
   
 
