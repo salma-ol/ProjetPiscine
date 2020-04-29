@@ -84,7 +84,6 @@ void Graphe::afficher()
     }
 }
 
-
 void Graphe::supprimerArete()
 {
     int n ;
@@ -94,7 +93,6 @@ void Graphe::supprimerArete()
     m_taille -= 1 ;
     for(size_t i=n ; i<m_aretes.size() ; ++i) { m_aretes[i]->SetNum(m_aretes[i]->GetNum()-1) ; }
 }
-
 
 /// CENTRALITE DE DEGRE
 
@@ -144,7 +142,6 @@ double Graphe::obtenirPoid(const Sommets* som1, const Sommets* som2)
     for(size_t i=0 ; i< m_aretes.size() ; ++i)
         if((som1 == m_aretes[i]->GetSommet1() )&&(som2 == m_aretes[i]->GetSommet2()))
             r = m_aretes[i]->GetPoids() ;
-
     return r ;
 }
 
@@ -152,7 +149,7 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
 {
     std::vector<int> marquages((int)m_sommets.size(),0) ;
     std::vector<double> distances((double)m_sommets.size(),999) ;
-
+    std::vector<Sommets*> prec(0);
     distances[num_s0]=0;
     std::vector<const Sommets*> succ ;
     std::vector<int> poid ;
@@ -164,8 +161,8 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
 
         /* Sélectionner et marquer le sommet s non marqué ayant la plus petite distance
         au sommet initial s0 */
-        double d=999 ;
-        int n=0 ; //Va correspondre à l'indice du sommet avec la plus petite distance à s0
+        double d=998;
+        int n=0; //Va correspondre à l'indice du sommet avec la plus petite distance à s0
 
         for(size_t i=0; i<m_sommets.size() ; ++i)
             if(marquages[i]==0)
@@ -185,11 +182,8 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
             {
                 /* si en passant par s le chemin est plus court, on met à jour
                 la distance et on note que s est le prédécesseur de x*/
-                if((d+obtenirPoid(s,succ[i]))<=distances[succ[i]->GetNum()])
-                {
-
-                    distances[succ[i]->GetNum()]=d+obtenirPoid(s,succ[i]) ;
-                }
+                if((d+obtenirPoid(s,succ[i]))<distances[succ[i]->GetNum()])
+                    distances[succ[i]->GetNum()]=d+obtenirPoid(s,succ[i]);
             }
         }
     }

@@ -49,7 +49,6 @@ void Sommets::afficherSommet()
     std::cout << m_name << " " << m_x << " " << m_y << std::endl;
 }
 
-
 const std::vector<const Sommets*>* Sommets::getSuccesseurs() const
 {
         return &m_successeurs;

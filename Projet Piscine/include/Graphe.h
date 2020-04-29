@@ -24,6 +24,7 @@ public:
     void afficher();
     void centraliteDegre();
     void supprimerArete() ;
+
     int getOrdre()
     {
         return m_ordre;
@@ -60,7 +61,6 @@ public:
     double obtenirPoid(const Sommets* som1, const Sommets* som2);
     void centraliteDeProxUnSommet(size_t num_s0, Sommets* Actuel) ;
     void centraliteDeProxSommets() ;
-
     void VecteurPropre();
     void Intermediarite();
     Graphe operator=(Graphe const&);
