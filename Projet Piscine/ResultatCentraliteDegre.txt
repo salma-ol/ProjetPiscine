@@ -1,0 +1,9 @@
+Sommet 0 : 2	0.25
+Sommet 1 : 3	0.375
+Sommet 2 : 3	0.375
+Sommet 3 : 4	0.5
+Sommet 4 : 3	0.375
+Sommet 5 : 2	0.25
+Sommet 6 : 3	0.375
+Sommet 7 : 2	0.25
+Sommet 8 : 2	0.25
