@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Sommet 0 : 0.0714286	0.571429
 Sommet 1 : 0.1	0.8
 Sommet 2 : 0.125	1
@@ -7,3 +8,14 @@ Sommet 5 : 0.333333	2.66667
 Sommet 6 : 0.5	4
 Sommet 7 : 0.333333	2.66667
 Sommet 8 : 1	8
+=======
+Sommet 0 : 0.0384615	0.307692
+Sommet 1 : 0.111111	0.888889
+Sommet 2 : 0.02	0.16
+Sommet 3 : 0.1	0.8
+Sommet 4 : 0.2	1.6
+Sommet 5 : 1	8
+Sommet 6 : 0	0
+Sommet 7 : 0.0555556	0.444444
+Sommet 8 : 0.111111	0.888889
+>>>>>>> Stashed changes
