@@ -161,7 +161,7 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
 
         /* Sélectionner et marquer le sommet s non marqué ayant la plus petite distance
         au sommet initial s0 */
-        double d=998;
+        double d=999;
         int n=0; //Va correspondre à l'indice du sommet avec la plus petite distance à s0
 
         for(size_t i=0; i<m_sommets.size() ; ++i)
@@ -184,6 +184,9 @@ double Graphe::dijkstra(size_t num_s0, size_t numF)
                 la distance et on note que s est le prédécesseur de x*/
                 if((d+obtenirPoid(s,succ[i]))<distances[succ[i]->GetNum()])
                     distances[succ[i]->GetNum()]=d+obtenirPoid(s,succ[i]);
+                //if((d+obtenirPoid(s,succ[i])) == distances[succ[i]->GetNum()])
+                  //  Graphe::PlusieursPlusCourtChemin();
+
             }
         }
     }
@@ -335,3 +338,9 @@ void Graphe::Intermediarite()
         a.m_aretes.push_back(b.m_aretes[i]);
     return a;
 }
+
+/*void Graphe::PlusieursPlusCourtChemin()
+{
+
+}
+*/
