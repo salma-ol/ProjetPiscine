@@ -49,6 +49,7 @@ void Sommets::afficherSommet()
     std::cout << m_name << " " << m_x << " " << m_y << std::endl;
 }
 
+
 const std::vector<const Sommets*>* Sommets::getSuccesseurs() const
 {
         return &m_successeurs;
@@ -139,3 +140,15 @@ void Sommets::SetIndiceIntermediaire(float indice) // indice normalise
 {
     m_indices[3].second=indice;
 }
+
+
+void Sommets::SetNum(int num)
+{
+    m_num=num ;
+}
+
+void Sommets::SetSucceseurs(std::vector<const Sommets*> succ)
+{
+    m_successeurs = succ;
+}
+

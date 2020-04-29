@@ -41,6 +41,8 @@ class Sommets
         void afficherSommet();
         const std::vector<const Sommets*>* getSuccesseurs() const ;
         void ajouterSucc(const Sommets* s);
+        void SetNum(int num) ;
+        void SetSucceseurs(std::vector<const Sommets*> succ) ;
 
     private:
         int m_x;
